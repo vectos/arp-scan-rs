@@ -1,0 +1,15 @@
+FROM arm64v8/ubuntu:20.04
+
+# Install necessary packages
+RUN apt-get update && apt-get install -y libssl-dev ca-certificates
+
+# Copy the binary
+COPY target/aarch64-unknown-linux-gnu/release/arp-scan /usr/local/bin/arp-scan
+
+USER root
+ENV USER=root
+
+# Set the binary as the entrypoint
+ENTRYPOINT ["/usr/local/bin/arp-scan"]
+
+CMD ["--help"]
